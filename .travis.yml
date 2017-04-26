@@ -29,5 +29,6 @@ script:
   - set +e
   - ./replant.sh m1-$VERSION
   - m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
+  - m1*/download.sh
   - m1*/install_db.sh
   - tail -n 40 m1*/db/error.log
