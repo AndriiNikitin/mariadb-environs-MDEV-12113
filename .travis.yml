@@ -13,18 +13,22 @@ env:
   matrix:
     - VERSION=10.1 PAGE_SIZE=16k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
     - VERSION=10.1 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=64k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:11M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:31M;ibdata2:10M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M:autoextend
-#    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:3M:autoextend
-#    - VERSION=10.2 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-#    - VERSION=10.0 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-#    - VERSION=5.5 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=64k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:11M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:31M;ibdata2:10M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M:autoextend
+    - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:3M:autoextend
+    - VERSION=10.2 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.0 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=5.5 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
 script:
   - set +e
   - sudo m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
   - sudo m1*/install.sh $VERSION
+  - sudo rm -rf /etc/mysql/conf.d/mysqld_safe*.cnf
+  - mysqladmin -uroot status || sudo mysqld_safe &
+  - wait 10
+  - tail -n 40 /var/lib/mysql/*.err
 
