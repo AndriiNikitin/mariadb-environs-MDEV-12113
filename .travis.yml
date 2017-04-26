@@ -15,18 +15,18 @@ install:
 
 env:
   matrix:
-    - VERSION=10.1.22 PAGE_SIZE=16k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=64k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:11M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:31M;ibdata2:10M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M:autoextend
-    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:3M:autoextend
-    # - VERSION=10.2.5 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.0.30 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=5.5.55 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.1.22 PAGE_SIZE=16k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=64k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:11M;ibdata2:10M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:31M;ibdata2:10M:autoextend
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M:autoextend'
+    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:3M:autoextend
+    - VERSION=10.2.5 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.0.30 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=5.5.55 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
 script:
   - set +e
   - ./replant.sh m1-$VERSION
