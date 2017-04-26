@@ -1,39 +1,33 @@
 language: cpp
 dist: trusty
-sudo: true
+sudo: false
+
+services:
+  - libaio1
 
 install:
   - set -e
   - mkdir ../farm
   - git clone --depth=1 https://github.com/AndriiNikitin/mariadb-environs ../farm
   - cd ../farm
-  - ./replant.sh m1-system
-  - sudo ./m1-system/shutdown.sh || true
-  - sudo ./m1-system/kill9.sh || true
-  - sudo ./_system/uninstall.sh || true
-  - sudo rm -rf /var/lib/mysql/*
 
 env:
   matrix:
-    - VERSION=10.1 PAGE_SIZE=16k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=64k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:11M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:31M;ibdata2:10M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M:autoextend
-    # - VERSION=10.1 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:3M:autoextend
-    # - VERSION=10.2 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=10.0 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
-    # - VERSION=5.5 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    - VERSION=10.1.22 PAGE_SIZE=16k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=64k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:11M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:31M;ibdata2:10M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M:autoextend
+    # - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:1M;ibdata2:3M:autoextend
+    # - VERSION=10.2.5 PAGE_SIZE=32k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=10.0.30 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
+    # - VERSION=5.5.55 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
 script:
   - set +e
-  - sudo ./m1-system/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
-  - sudo ./m1-system/install.sh $VERSION
-  - sudo rm -rf /etc/mysql/conf.d/mysqld_safe*.cnf
-  - mysqladmin -uroot status || sudo mysqld_safe &
-  - sleep 10
-  - sudo tail -n 40 /var/lib/mysql/*.err
-  - mysqladmin -uroot shutdown || true
-
+  - ./replant.sh m1-$VERSOPN
+  - m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
+  - m1*/install_db.sh
+  - tail -n 40 m1*/db/error.log
