@@ -1,6 +1,6 @@
 language: cpp
 dist: trusty
-sudo: false
+sudo: true
 
 install:
   - set -e
@@ -25,6 +25,6 @@ env:
 #    - VERSION=5.5 PAGE_SIZE=8k DATA_FILE_PATH=ibdata1:3M;ibdata2:10M:autoextend
 script:
   - set +e
-  - m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
-  - m1*/install.sh $VERSION
+  - sudo m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
+  - sudo m1*/install.sh $VERSION
 
