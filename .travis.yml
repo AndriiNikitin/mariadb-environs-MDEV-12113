@@ -2,8 +2,10 @@ language: cpp
 dist: trusty
 sudo: false
 
-services:
-  - libaio1
+addons:
+  apt:
+    packages:
+    - libaio1
 
 install:
   - set -e
@@ -31,4 +33,4 @@ script:
   - m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH"
   - m1*/download.sh
   - m1*/install_db.sh
-  - tail -n 40 m1*/db/error.log
+  - tail -n 40 m1*/dt/error.log
