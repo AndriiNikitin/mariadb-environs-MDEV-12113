@@ -33,6 +33,7 @@ script:
   - sudo ./m1-system/install.sh $VERSION
   - sudo rm -rf /etc/mysql/conf.d/mysqld_safe*.cnf
   - mysqladmin -uroot status || sudo mysqld_safe &
-  - wait 10
-  - tail -n 40 /var/lib/mysql/*.err
+  - sleep 10
+  - sudo tail -n 40 /var/lib/mysql/*.err
+  - mysqladmin -uroot shutdown || true
 
