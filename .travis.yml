@@ -15,16 +15,16 @@ install:
 
 env:
   matrix:
-    - VERSION=10.1.22 PAGE_SIZE=16k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=16k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend' REST=configure_rest_encryption.sh=1
-    - VERSION=10.1.22 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=64k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:11M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:31M;ibdata2:10M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M:autoextend'
-    - VERSION=10.1.22 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:3M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=16k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=16k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend' REST=configure_rest_encryption.sh=1
+    - VERSION=10.1.25 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=64k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:11M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:31M;ibdata2:10M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M:autoextend'
+    - VERSION=10.1.25 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:1M;ibdata2:3M:autoextend'
     - VERSION=10.2.5 PAGE_SIZE=32k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
     - VERSION=10.0.30 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
     - VERSION=5.5.55 PAGE_SIZE=8k DATA_FILE_PATH='ibdata1:3M;ibdata2:10M:autoextend'
@@ -34,4 +34,4 @@ script:
   - m1*/gen_cnf.sh "innodb_page_size=$PAGE_SIZE innodb_data_file_path=$DATA_FILE_PATH $REST"
   - m1*/download.sh
   - m1*/install_db.sh
-  - tail -n 40 m1*/dt/error.log
+  - tail -n 60 m1*/dt/error.log
